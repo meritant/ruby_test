@@ -14,3 +14,7 @@ end
 get '/wealth' do
   erb :wealth
 end
+
+get '/visit' do
+  erb :visit
+end
