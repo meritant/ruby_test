@@ -38,9 +38,17 @@
   <button type="submit" class="btn btn-primary">Enroll</button>
 </form>
 <script type="text/javascript">
-  //alert('Info: BIZA');
-  // Hide all paragraphs and then show them with animation
-  $('input').hide().fadeIn();
-  $('select[name="colorpicker"]').simplecolorpicker();
+
+  // This is for running a script AFTER the page is loaded
+  // The function used to fit more than 1 line of code
+  $(function(){
+      $('select[name="colorpicker"]').simplecolorpicker();
+
+      // Hide all paragraphs and then show them with animation
+
+      $('input').hide().fadeIn();
+
+  });
+
 </script>
 
