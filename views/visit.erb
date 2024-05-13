@@ -14,9 +14,9 @@
   </div>
   <select class="form-select" name="dresser" aria-label="Default select example">
     <option value="<%= @dresser %>" selected>Choose your dresser</option>
-    <option>Jane Borov</option>
-    <option>Juce Garlic</option>
-    <option>Stinky Vahashme</option>
+    <option <%= @dresser == 'Jane Borov' ? 'selected' : '' %>>Jane Borov</option>
+    <option <%= @dresser == 'Juce Garlic' ? 'selected' : '' %>>Juce Garlic</option>
+    <option <%= @dresser == 'Stinky Vahashme' ? 'selected' : '' %>>Stinky Vahashme</option>
   </select>
   <br />
   <label class="form-label">Choose your color:</label>
