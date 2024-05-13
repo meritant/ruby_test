@@ -85,6 +85,7 @@ post '/about' do
   # This is suppose to show when success
   # redirect '/success'
 
+  # Just print out data
   erb "username is #{@username}, #{@email} and message is #{@message}"
 
 
