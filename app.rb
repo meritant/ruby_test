@@ -6,8 +6,8 @@ require 'sqlite3'
 
 
 configure do
-  @db = SQLite3::Database.new 'BarberShop.db'
-  @db.execute 'CREATE TABLE IF NOT EXISTS
+  db = SQLite3::Database.new 'BarberShop.db'
+  db.execute 'CREATE TABLE IF NOT EXISTS
   "user" (
 	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"name"	text NOT NULL DEFAULT "Noname",
@@ -20,13 +20,11 @@ end
 
 
 
-@db.execute "select * from user" do |user|
-  puts user
-  puts '+'*25
-end
-
-
-@db.close
+# @db.execute "select * from user" do |user|
+#   puts user
+#   puts '+'*25
+# end
+# @db.close
 
 get '/' do
   @message = 'Super valuable website!!!'
@@ -63,15 +61,28 @@ post '/visit' do
   hh.each_key do |key|
       # Checking if params[] have an empty value
       # if yes, assign error variable a message from the hash
-      if params[key] == ''
-        @error = hh[key]
-        # And return back to same page
-        return erb :visit
-      end
+    if params[key] == ''
+      @error = hh[key]
+      # And return back to same page
+      return erb :visit
+    end
   end
+
+
+  # Inserting into table user
+  # Using ???? to protect from SQL Injection
+  connect_db.execute "insert into user (name, phone, date_stamp, barber, color)
+values (?, ?, ?, ?, ?)", [@username, @phone, @datetime, @dresser, @color]
+
+
   erb "user is #{@username}, #{@phone}, #{@datetime} and #{@dresser} aand color is #{@color}"
 end
 # # Visit code END
+
+# Function to connect to DB
+def connect_db
+  SQLite3::Database.new 'BarberShop.db'
+end
 #
 # post '/about' do
 #   require 'pony'
