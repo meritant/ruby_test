@@ -4,15 +4,29 @@ require 'sinatra/reloader'
 # require 'pony'
 require 'sqlite3'
 
-db=SQLite3::Database.new 'test.db'
 
-db.execute "select * from car" do |car|
-  puts car
+configure do
+  @db = SQLite3::Database.new 'BarberShop.db'
+  @db.execute 'CREATE TABLE IF NOT EXISTS
+  "user" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"name"	text NOT NULL DEFAULT "Noname",
+	"phone"	TEXT NOT NULL,
+	"date_stamp"	TEXT DEFAULT CURRENT_TIMESTAMP,
+	"barber"	TEXT NOT NULL DEFAULT "no_one",
+	"color"	TEXT NOT NULL DEFAULT "#ffffff"
+  );'
+end
+
+
+
+@db.execute "select * from user" do |user|
+  puts user
   puts '+'*25
 end
 
 
-db.close
+@db.close
 
 get '/' do
   @message = 'Super valuable website!!!'
