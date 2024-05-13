@@ -81,7 +81,8 @@ post '/about' do
                 domain: "localhost.localdomain" # the HELO domain provided by the client to the server
               }
             })
-  
+
+  # This is suppose to show when success
   # redirect '/success'
 
   erb "username is #{@username}, #{@email} and message is #{@message}"
