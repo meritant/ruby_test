@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'rubygems'
 require 'sinatra/reloader'
+require 'pony'
 
 get '/' do
   @message = 'Super valuable website!!!'
@@ -19,6 +20,7 @@ get '/visit' do
   erb :visit
 end
 
+# Code for VISIT page
 post '/visit' do
   erb 'Success'
   @username = params[:username]
@@ -42,7 +44,47 @@ post '/visit' do
         return erb :visit
       end
   end
-
-
   erb "user is #{@username}, #{@phone}, #{@datetime} and #{@dresser} aand color is #{@color}"
+end
+# Visit code END
+
+post '/about' do
+  require 'pony'
+  @username = params[:username]
+  @email = params[:email]
+  @message = params[:message]
+
+  hh2 = {username: 'Enter Name', email: 'Enter email', message: 'Enter message'}
+
+  hh2.each_key do |key|
+    if params[key] == ''
+      @error = hh2[key]
+      return erb :about
+    end
+  end
+
+  # Implementing pony
+
+  Pony.mail({
+              to: 'olekszhatm@gmail.com',
+              from: @email,
+              body: @message,
+              subject: @username + " has contacted you",
+              via: :smtp,
+              via_options: {
+                address: 'smtp.gmail.com',
+                port: '587',
+                enable_starttls_auto: true,
+                user_name: 'olekszhatm@gmail.com',
+                password: '!A6b00l757',
+                authentication: :plain, # :plain, :login, :cram_md5, no auth by default
+                domain: "localhost.localdomain" # the HELO domain provided by the client to the server
+              }
+            })
+  
+  # redirect '/success'
+
+  erb "username is #{@username}, #{@email} and message is #{@message}"
+
+
 end
