@@ -8,10 +8,12 @@
     <label for="exampleInputPassword1" class="form-label">Phone #</label>
     <input type="text" name="phone" value="<%= @phone %>" class="form-control" id="exampleInputPassword1">
   </div>
+
   <div class="mb-3">
-    <label for="date" class="form-label">When you arrive?</label>
-    <input type="text" name="datetime" value="<%= @datetime %>" class="form-control" id="date">
+    <label for="datetimepicker">Chose Date and Time:</label>
+    <input type="text" name="datetime" value="<%= @datetime %>" class="form-control" id="datetimepicker">
   </div>
+
   <select class="form-select" name="dresser" aria-label="Default select example">
     <option value="<%= @dresser %>" selected>Choose your dresser</option>
     <option <%= @dresser == 'Jane Borov' ? 'selected' : '' %>>Jane Borov</option>
@@ -37,6 +39,7 @@
 
   <button type="submit" class="btn btn-primary">Enroll</button>
 </form>
+
 <script type="text/javascript">
 // placed in the function to load script
 // AFTER page is loaded
@@ -45,7 +48,8 @@
       $('input').hide().fadeIn();
       //color picker
       $('select[name="colorpicker"]').simplecolorpicker();
-  })
+      $('#datetimepicker').datetimepicker();
+  });
 
 </script>
 

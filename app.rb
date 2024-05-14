@@ -83,6 +83,22 @@ end
 def connect_db
   SQLite3::Database.new 'BarberShop.db'
 end
+
+
+
+# Display users from db
+get '/showusers' do
+  erb 'We going to show our users here'
+  @db = connect_db
+  @db.results_as_hash = true
+  @db.execute 'select * from user' do |row|
+
+   puts row['name']
+   puts row['date_stamp']
+   puts '+' * 25
+  end
+  @db.close
+end
 #
 # post '/about' do
 #   require 'pony'
