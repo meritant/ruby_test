@@ -11,14 +11,16 @@
 
   <div class="mb-3">
     <label for="datetimepicker">Chose Date and Time:</label>
-    <input type="text" name="datetime" value="<%= @datetime %>" class="form-control" id="datetimepicker">
+    <input type="text" name="datetime" value="<%= @datetime %>" class="form-control" >
   </div>
 
+
   <select class="form-select" name="dresser" aria-label="Default select example">
+    # Generating list from DB
     <option value="<%= @dresser %>" selected>Choose your dresser</option>
-    <option <%= @dresser == 'Jane Borov' ? 'selected' : '' %>>Jane Borov</option>
-    <option <%= @dresser == 'Juce Garlic' ? 'selected' : '' %>>Juce Garlic</option>
-    <option <%= @dresser == 'Stinky Vahashme' ? 'selected' : '' %>>Stinky Vahashme</option>
+    <% @barber_list.each do |barber| %>
+      <option <%= @dresser == barber['name'] ? 'selected' : '' %>><%= barber['name'] %></option>
+    <% end %>
   </select>
   <br />
   <label class="form-label">Choose your color:</label>
@@ -48,7 +50,6 @@
       $('input').hide().fadeIn();
       //color picker
       $('select[name="colorpicker"]').simplecolorpicker();
-      $('#datetimepicker').datetimepicker();
   });
 
 </script>
